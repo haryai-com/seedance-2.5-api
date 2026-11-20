@@ -202,6 +202,8 @@ A failed task has `error: {code, message}`. Details: [docs/video.md](https://har
 - [Seedance API pricing](https://haryai.com/en/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [Video API reference](https://haryai.com/docs/video.md), [Chat API reference](https://haryai.com/docs/api.md), [llms.txt](https://haryai.com/llms.txt)
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill): Seedance 2.5 as a Claude Code and Codex skill
+- [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui): the same in ComfyUI (in ComfyUI Manager)
+- [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai): the same in n8n (npm `n8n-nodes-haryai`)
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code): DeepSeek V4 in Codex and Claude Code
 
 ## License

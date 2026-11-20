@@ -230,6 +230,8 @@ A failed task has \`error: {code, message}\`. Details: [docs/video.md](${VIDEO_M
 - [Seedance API pricing](${page("/en/seedance-api-pricing")})
 - [Video API reference](${VIDEO_MD}), [Chat API reference](${SITE}/docs/api.md), [llms.txt](${LLMS})
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill): Seedance 2.5 as a Claude Code and Codex skill
+- [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui): the same in ComfyUI (in ComfyUI Manager)
+- [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai): the same in n8n (npm \`n8n-nodes-haryai\`)
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code): DeepSeek V4 in Codex and Claude Code
 
 ## License
@@ -380,6 +382,8 @@ ${errTables[1]}
 - [Seedance API 价格](${page("/zh/seedance-api-pricing")})
 - [视频接口文档](${VIDEO_MD})，[对话接口文档](${SITE}/docs/api.md)，[llms.txt](${LLMS})
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
+- [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
+- [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai)：在 n8n 里用（npm 包 \`n8n-nodes-haryai\`）
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
 
 ## 许可

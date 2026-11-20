@@ -202,6 +202,8 @@ key、模型和余额相关的错误：
 - [Seedance API 价格](https://haryai.com/zh/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [视频接口文档](https://haryai.com/docs/video.md)，[对话接口文档](https://haryai.com/docs/api.md)，[llms.txt](https://haryai.com/llms.txt)
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
+- [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
+- [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai)：在 n8n 里用（npm 包 `n8n-nodes-haryai`）
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
 
 ## 许可
