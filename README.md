@@ -66,6 +66,13 @@ On `succeeded`, `content.video_url` is the video. It needs no API key and expire
 curl -L -o video.mp4 "<content.video_url>"
 ```
 
+To check several tasks in one request, or whether a submit that lost its reply was created, list your tasks from the last 7 days. Filters: `filter.status`, `filter.model` and `filter.task_ids` (repeat it for several ids):
+
+```sh
+curl "https://api.haryai.com/api/v3/contents/generations/tasks?page_size=20&filter.status=succeeded" \
+  -H "Authorization: Bearer $HARYAI_KEY"
+```
+
 ### OpenAI Videos format (base URL `https://api.haryai.com/v1`)
 
 ```sh
@@ -135,12 +142,12 @@ Only in those that let you enter your own base URL and key. Many hosted canvases
 Put your key in `HARYAI_KEY`, then paste this to the agent with what you want in the last line. It writes a short script, submits the task, polls and saves the clip to `./out`.
 
 ```text
-Make a video with Seedance 2.5 through HaryAI. The API is the same as Volcengine Ark.
+Make a video with Seedance 2.5 through HaryAI. The API is the same as BytePlus ModelArk (Volcengine Ark).
 
 - Base URL: https://api.haryai.com/api/v3
 - API key: in the environment variable HARYAI_KEY, sent as "Authorization: Bearer"
 - Model: dreamina-seedance-2-5-260628
-- Submit: POST /contents/generations/tasks with an Ark request body. Always set duration.
+- Submit: POST /contents/generations/tasks with a ModelArk request body. Always set duration.
 - Poll: GET /contents/generations/tasks/{id} every 10 seconds until status is succeeded or failed.
 - When it succeeds, download content.video_url into ./out (the link expires after 24 hours) and open the file.
 - Reference, statuses and error codes: https://haryai.com/docs/video.md
@@ -194,6 +201,8 @@ A failed task has `error: {code, message}`. Details: [docs/video.md](https://har
 - [Seedance 2.5](https://haryai.com/en/seedance-2-5?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api), [Seedance 2.5 Flash](https://haryai.com/en/seedance-2-5-flash?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [Seedance API pricing](https://haryai.com/en/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [Video API reference](https://haryai.com/docs/video.md), [Chat API reference](https://haryai.com/docs/api.md), [llms.txt](https://haryai.com/llms.txt)
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill): Seedance 2.5 as a Claude Code and Codex skill
+- [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code): DeepSeek V4 in Codex and Claude Code
 
 ## License
 

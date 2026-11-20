@@ -66,6 +66,13 @@ curl https://api.haryai.com/api/v3/contents/generations/tasks/<task id> \
 curl -L -o video.mp4 "<content.video_url>"
 ```
 
+想一次查多个任务，或者提交时没收到回复、想确认任务有没有建出来，可以列出最近 7 天的任务。可以按 `filter.status`、`filter.model` 和 `filter.task_ids` 筛选，查多个任务就把 `filter.task_ids` 写多次：
+
+```sh
+curl "https://api.haryai.com/api/v3/contents/generations/tasks?page_size=20&filter.status=succeeded" \
+  -H "Authorization: Bearer $HARYAI_KEY"
+```
+
 ### OpenAI Videos 格式（接口地址 `https://api.haryai.com/v1`）
 
 ```sh
@@ -194,6 +201,8 @@ key、模型和余额相关的错误：
 - [Seedance 2.5](https://haryai.com/zh/seedance-2-5?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)，[Seedance 2.5 Flash](https://haryai.com/zh/seedance-2-5-flash?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [Seedance API 价格](https://haryai.com/zh/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [视频接口文档](https://haryai.com/docs/video.md)，[对话接口文档](https://haryai.com/docs/api.md)，[llms.txt](https://haryai.com/llms.txt)
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
+- [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
 
 ## 许可
 

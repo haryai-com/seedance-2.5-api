@@ -50,8 +50,9 @@ const rows = [...md.matchAll(/^\| `([\w-]+)` \| ([^|]+) \| ([^|]+) \|$/gm)].map(
 must(rows.length, "models table");
 const [, dMin, dMax] = must(md.match(/Durations run from (\d+) to (\d+) seconds/), "duration range");
 const blocks = [...md.matchAll(/```sh\n([\s\S]*?)```/g)].map((m) => m[1].trimEnd());
-if (blocks.length !== 4) throw new Error(`expected 4 sh blocks in video.md, got ${blocks.length}`);
-const [arkSubmit, arkPoll, arkDownload, openai] = blocks;
+if (blocks.length !== 5) throw new Error(`expected 5 sh blocks in video.md, got ${blocks.length}`);
+const [arkSubmit, arkPoll, arkDownload, arkList, openai] = blocks;
+const listDays = must(md.match(/Your tasks from the last (\d+) days/), "list window")[1];
 const linkHours = must(md.match(/expires after (\d+) hours/), "link expiry")[1];
 const formula = flat(must(md.match(/Billing tokens = ([\s\S]*?)\. Reference/), "billing formula")[1]);
 const sizeRule = flat(must(md.match(/`size` is `WIDTHxHEIGHT`;([\s\S]*?)\n\n/), "size rule")[1]);
@@ -133,6 +134,10 @@ ${sh(arkPoll)}
 On \`succeeded\`, \`content.video_url\` is the video. It needs no API key and expires after ${linkHours} hours:
 
 ${sh(arkDownload)}
+
+To check several tasks in one request, or whether a submit that lost its reply was created, list your tasks from the last ${listDays} days. Filters: \`filter.status\`, \`filter.model\` and \`filter.task_ids\` (repeat it for several ids):
+
+${sh(arkList)}
 
 ### OpenAI Videos format (base URL \`https://api.haryai.com/v1\`)
 
@@ -224,6 +229,8 @@ A failed task has \`error: {code, message}\`. Details: [docs/video.md](${VIDEO_M
 - [Seedance 2.5](${page("/en/seedance-2-5")}), [Seedance 2.5 Flash](${page("/en/seedance-2-5-flash")})
 - [Seedance API pricing](${page("/en/seedance-api-pricing")})
 - [Video API reference](${VIDEO_MD}), [Chat API reference](${SITE}/docs/api.md), [llms.txt](${LLMS})
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill): Seedance 2.5 as a Claude Code and Codex skill
+- [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code): DeepSeek V4 in Codex and Claude Code
 
 ## License
 
@@ -277,6 +284,10 @@ ${sh(arkPoll)}
 成功后 \`content.video_url\` 就是视频地址。下载不需要 API key，链接 ${linkHours} 小时后失效：
 
 ${sh(arkDownload)}
+
+想一次查多个任务，或者提交时没收到回复、想确认任务有没有建出来，可以列出最近 ${listDays} 天的任务。可以按 \`filter.status\`、\`filter.model\` 和 \`filter.task_ids\` 筛选，查多个任务就把 \`filter.task_ids\` 写多次：
+
+${sh(arkList)}
 
 ### OpenAI Videos 格式（接口地址 \`https://api.haryai.com/v1\`）
 
@@ -368,6 +379,8 @@ ${errTables[1]}
 - [Seedance 2.5](${page("/zh/seedance-2-5")})，[Seedance 2.5 Flash](${page("/zh/seedance-2-5-flash")})
 - [Seedance API 价格](${page("/zh/seedance-api-pricing")})
 - [视频接口文档](${VIDEO_MD})，[对话接口文档](${SITE}/docs/api.md)，[llms.txt](${LLMS})
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
+- [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
 
 ## 许可
 

@@ -59,11 +59,17 @@ if (!submit.ok || !submitted.id) {
 const id = submitted.id;
 console.log(`task ${id} submitted, polling every ${POLL_SECONDS} s`);
 
-// 2. Poll until succeeded or failed. 429 and 5xx are retried.
+// 2. Poll until succeeded or failed. 429, 5xx and dropped connections are retried:
+//    the task keeps running on the server.
 let task;
 for (;;) {
   await sleep(POLL_SECONDS);
-  const res = await fetch(`${BASE}/contents/generations/tasks/${id}`, { headers });
+  let res;
+  try {
+    res = await fetch(`${BASE}/contents/generations/tasks/${id}`, { headers });
+  } catch {
+    continue;
+  }
   if (res.status === 429 || res.status >= 500) continue;
   task = await res.json();
   if (!res.ok) {
@@ -79,13 +85,22 @@ if (task.status === "failed") {
   process.exit(1);
 }
 
-// 3. Download. The link needs no key and expires after 24 hours.
-const video = await fetch(task.content.video_url);
-if (!video.ok) {
-  console.error(`Download failed (${video.status})`);
-  process.exit(1);
-}
+// 3. Download. The link needs no key, redirects to storage and expires after
+//    24 hours. A cut-off download is tried again.
 await mkdir(opts.out, { recursive: true });
 const file = join(opts.out, `${id}.mp4`);
-await writeFile(file, Buffer.from(await video.arrayBuffer()));
+for (let attempt = 1; ; attempt++) {
+  try {
+    const video = await fetch(task.content.video_url);
+    if (!video.ok) throw new Error(`HTTP ${video.status}`);
+    await writeFile(file, Buffer.from(await video.arrayBuffer()));
+    break;
+  } catch (e) {
+    if (attempt === 5) {
+      console.error(`Download failed: ${e.message}`);
+      process.exit(1);
+    }
+    await sleep(5);
+  }
+}
 console.log(`saved ${file}`, task.usage ? `(billing tokens: ${task.usage.total_tokens})` : "");
