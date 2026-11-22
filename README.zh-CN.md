@@ -205,11 +205,12 @@ key、模型和余额相关的错误：
 - [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
 - [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai)：在 n8n 里用（npm 包 `n8n-nodes-haryai`）
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2
 
 ## 许可
 
 MIT，见 [LICENSE](LICENSE)。
 
-价格截至 2026-11-20。
+价格截至 2026-11-23。
 
-<!-- 由 build.mjs 于 2026-11-20 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 Seedance 2.5 video 一节）、https://haryai.com/docs/video.md 和 https://haryai.com/zh/seedance-2-5 上的 agent 提示词。请改 build.mjs，不要直接改本文件。 -->
+<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 Seedance 2.5 video 一节）、https://haryai.com/docs/video.md 和 https://haryai.com/zh/seedance-2-5 上的 agent 提示词。请改 build.mjs，不要直接改本文件。 -->

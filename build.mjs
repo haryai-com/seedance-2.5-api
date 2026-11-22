@@ -48,6 +48,9 @@ const zhZhe = share % 10 === 0 ? `${share / 10} 折` : `${share} 折`; // zh: "8
 const md = await get(VIDEO_MD);
 const rows = [...md.matchAll(/^\| `([\w-]+)` \| ([^|]+) \| ([^|]+) \|$/gm)].map(([, id, res]) => ({ id, res: res.trim() }));
 must(rows.length, "models table");
+// The -unlock names (same models, fewer content limits) have no per-model
+// price in llms.txt; this README covers the priced ones.
+for (let i = rows.length - 1; i >= 0; i--) if (rows[i].id.endsWith("-unlock")) rows.splice(i, 1);
 const [, dMin, dMax] = must(md.match(/Durations run from (\d+) to (\d+) seconds/), "duration range");
 const blocks = [...md.matchAll(/```sh\n([\s\S]*?)```/g)].map((m) => m[1].trimEnd());
 if (blocks.length !== 5) throw new Error(`expected 5 sh blocks in video.md, got ${blocks.length}`);
@@ -233,6 +236,7 @@ A failed task has \`error: {code, message}\`. Details: [docs/video.md](${VIDEO_M
 - [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui): the same in ComfyUI (in ComfyUI Manager)
 - [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai): the same in n8n (npm \`n8n-nodes-haryai\`)
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code): DeepSeek V4 in Codex and Claude Code
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api): Nano Banana 2.1 and 2 through the OpenAI images API or Gemini's own format
 
 ## License
 
@@ -385,6 +389,7 @@ ${errTables[1]}
 - [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
 - [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai)：在 n8n 里用（npm 包 \`n8n-nodes-haryai\`）
 - [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2
 
 ## 许可
 
