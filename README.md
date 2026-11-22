@@ -12,6 +12,8 @@ This repo shows how to call it: curl, a zero-dependency Node script, and answers
 |---|---|---|---|
 | Seedance 2.5 | `dreamina-seedance-2-5-260628` | 480p, 720p, 1080p | 4 to 30 s |
 | Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115` | 480p, 720p | 4 to 30 s |
+| Seedance 2.5 | `dreamina-seedance-2-5-260628-unlock` | 480p, 720p, 1080p | 4 to 30 s |
+| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115-unlock` | 480p, 720p | 4 to 30 s |
 
 Always set `duration` (or `seconds`). Sound is generated on request, at the same price with or without it.
 
@@ -28,6 +30,18 @@ US dollars per second of 16:9 output, no reference video. 12% off the official B
 | Seedance 2.5 Flash | 720p | $0.151 | $0.133 | $0.67 |
 
 With a reference video the per-second price is lower, and the reference video's length is billed too. Current prices: [Seedance API pricing](https://haryai.com/en/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api).
+
+### Unlocked version, 6% off the official price
+
+The same models with fewer content limits. Add -unlock to the model name, as in `dreamina-seedance-2-5-260628-unlock`. Content review still applies, and a refused task is refunded in full.
+
+| Model | Resolution | Official | HaryAI | 5 s clip on HaryAI |
+|---|---|---|---|---|
+| Seedance 2.5 | 480p | $0.103 | $0.097 | $0.48 |
+| Seedance 2.5 | 720p | $0.231 | $0.217 | $1.09 |
+| Seedance 2.5 | 1080p | $0.569 | $0.535 | $2.67 |
+| Seedance 2.5 Flash | 480p | $0.067 | $0.063 | $0.32 |
+| Seedance 2.5 Flash | 720p | $0.151 | $0.142 | $0.71 |
 
 ## Quick start
 

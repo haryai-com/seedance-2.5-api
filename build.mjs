@@ -33,14 +33,23 @@ const video = must(prices.match(/\*\*Seedance 2\.5 video\*\*[\s\S]*?(?=\nVideo p
 const share = Number(must(video.match(/at (\d+)% of BytePlus's official price/), "video share")[1]);
 const basis = flat(must(video.match(/Per second of ([\s\S]+?):\n/), "price basis")[1]); // "16:9 output, no reference video"
 const gift = Number(must(llms.match(/gets[\s>]+\$([\d.]+)[\s>]+of balance/), "signup gift")[1]);
-const models = []; // [{ name, id, tiers: { "480p": { ours, official } } }]
-for (const [, name, id, tiers] of video.matchAll(/^- (Seedance[^(]*?) \(([\w-]+)\): (.+)$/gm)) {
-  const t = {};
-  for (const [, res, ours, official] of tiers.matchAll(/(\d+p) \$([\d.]+) \(official \$([\d.]+)\)/g))
-    t[res] = { ours: Number(ours), official: Number(official) };
-  models.push({ name, id, tiers: t });
-}
-must(models.length, "per-second prices");
+// The -unlock names (same models, fewer content limits) follow the main list
+// with their own share and per-second lines.
+const [videoMain, videoUnlock] = video.split(/\nThe -unlock names/);
+must(videoUnlock, "-unlock prices");
+const perSecondOf = (text) => {
+  const list = []; // [{ name, id, tiers: { "480p": { ours, official } } }]
+  for (const [, name, id, tiers] of text.matchAll(/^- (Seedance[^(]*?) \(([\w-]+)\): (.+)$/gm)) {
+    const t = {};
+    for (const [, res, ours, official, clip5] of tiers.matchAll(/(\d+p) \$([\d.]+) \(official \$([\d.]+); 5 s clip \$([\d.]+)\)/g))
+      t[res] = { ours: Number(ours), official: Number(official), clip5: `$${clip5}` };
+    list.push({ name, id, tiers: t });
+  }
+  return must(list.length && list, "per-second prices");
+};
+const models = perSecondOf(videoMain);
+const unlockModels = perSecondOf(videoUnlock);
+
 const off = 100 - share; // en: "12% off"
 const zhZhe = share % 10 === 0 ? `${share / 10} 折` : `${share} 折`; // zh: "88 折"
 
@@ -48,9 +57,6 @@ const zhZhe = share % 10 === 0 ? `${share / 10} 折` : `${share} 折`; // zh: "8
 const md = await get(VIDEO_MD);
 const rows = [...md.matchAll(/^\| `([\w-]+)` \| ([^|]+) \| ([^|]+) \|$/gm)].map(([, id, res]) => ({ id, res: res.trim() }));
 must(rows.length, "models table");
-// The -unlock names (same models, fewer content limits) have no per-model
-// price in llms.txt; this README covers the priced ones.
-for (let i = rows.length - 1; i >= 0; i--) if (rows[i].id.endsWith("-unlock")) rows.splice(i, 1);
 const [, dMin, dMax] = must(md.match(/Durations run from (\d+) to (\d+) seconds/), "duration range");
 const blocks = [...md.matchAll(/```sh\n([\s\S]*?)```/g)].map((m) => m[1].trimEnd());
 if (blocks.length !== 5) throw new Error(`expected 5 sh blocks in video.md, got ${blocks.length}`);
@@ -64,6 +70,16 @@ const errTables = [...errors.matchAll(/((?:^\|.*\|\n?)+)/gm)].map((m) => m[1].tr
 if (errTables.length !== 2) throw new Error(`expected 2 error tables, got ${errTables.length}`);
 
 // ---- the agent prompt on the model page (first <pre><code>)
+// ---- the unlocked version's heading and note on the pricing page, per language
+const unlockCopy = async (path) => {
+  const html = await get(`${SITE}${path}`);
+  const [, title, note] = must(html.match(/<h3[^>]*>([^<]*)<\/h3><p[^>]*>([\s\S]*?)<\/p>/g)?.map((h) => h.match(/<h3[^>]*>([^<]*)<\/h3><p[^>]*>([\s\S]*?)<\/p>/)).find((m) => /-unlock/.test(m[2])), `unlock note on ${path}`);
+  const text = (s) => unescape(s.replace(/<code[^>]*>([\s\S]*?)<\/code>/g, "`$1`").replace(/<[^>]+>/g, "")).trim();
+  return { title: text(title), note: text(note) };
+};
+const unlockEn = await unlockCopy("/en/seedance-api-pricing");
+const unlockZh = await unlockCopy("/zh/seedance-api-pricing");
+
 const agentPrompt = async (path) =>
   unescape(must((await get(`${SITE}${path}`)).match(/<pre[^>]*><code>([\s\S]*?)<\/code><\/pre>/), `prompt on ${path}`)[1]).trim();
 const promptEn = await agentPrompt("/en/seedance-2-5");
@@ -74,9 +90,8 @@ const script = await readFile("examples/seedance.mjs", "utf8");
 const scriptModel = must(script.match(/model: "([\w-]+)"/), "script default model")[1];
 if (!rows.some((r) => r.id === scriptModel)) throw new Error(`examples/seedance.mjs default model ${scriptModel} is not in video.md`);
 
-const nameOf = (id) => must(models.find((m) => m.id === id), `price for ${id}`).name;
+const nameOf = (id) => must([...models, ...unlockModels].find((m) => m.id === id), `price for ${id}`).name;
 const usd = (n) => `$${n.toFixed(3).replace(/0$/, "")}`;
-const clip = (n, s = 5) => `$${(Math.round(Number((n * s).toFixed(4)) * 100 + 1e-6) / 100).toFixed(2)}`; // half up, as the site shows
 const today = new Date().toLocaleDateString("sv"); // YYYY-MM-DD, local
 const flash = models.find((m) => /Flash/.test(m.name));
 const proModel = models.find((m) => !/Flash/.test(m.name));
@@ -85,11 +100,11 @@ const lowRes = Object.keys(lowest.tiers)[0];
 
 const modelTable = (h, dur = `${dMin} to ${dMax} s`, sep = ", ") =>
   [`| ${h.join(" | ")} |`, `|${h.map(() => "---").join("|")}|`, ...rows.map((r) => `| ${nameOf(r.id)} | \`${r.id}\` | ${r.res.split(", ").join(sep)} | ${dur} |`)].join("\n");
-const priceTable = (h) =>
+const priceTable = (h, list = models) =>
   [
     `| ${h.join(" | ")} |`,
     `|${h.map(() => "---").join("|")}|`,
-    ...models.flatMap((m) => Object.entries(m.tiers).map(([res, p]) => `| ${m.name} | ${res} | ${usd(p.official)} | ${usd(p.ours)} | ${clip(p.ours)} |`)),
+    ...list.flatMap((m) => Object.entries(m.tiers).map(([res, p]) => `| ${m.name} | ${res} | ${usd(p.official)} | ${usd(p.ours)} | ${p.clip5} |`)),
   ].join("\n");
 const sh = (s) => "```sh\n" + s + "\n```";
 const text = (s) => "```text\n" + s + "\n```";
@@ -117,9 +132,15 @@ ${priceTable(["Model", "Resolution", "Official", "HaryAI", "5 s clip on HaryAI"]
 
 With a reference video the per-second price is lower, and the reference video's length is billed too. Current prices: [Seedance API pricing](${page("/en/seedance-api-pricing")}).
 
+### ${unlockEn.title}
+
+${unlockEn.note}
+
+${priceTable(["Model", "Resolution", "Official", "HaryAI", "5 s clip on HaryAI"], unlockModels)}
+
 ## Quick start
 
-1. Sign up at [haryai.com](${page("/en/signup")}). A verified new account gets $${gift.toFixed(2)} of balance, enough for a 5 second ${lowRes} clip on ${lowest.name} (${clip(lowest.tiers[lowRes].ours)}).
+1. Sign up at [haryai.com](${page("/en/signup")}). A verified new account gets $${gift.toFixed(2)} of balance, enough for a 5 second ${lowRes} clip on ${lowest.name} (${lowest.tiers[lowRes].clip5}).
 2. Copy your API key from the account page and set it: \`export HARYAI_KEY=...\`
 
 Video generation is an asynchronous task: submit, get a task id, poll until it finishes, then download.
@@ -270,9 +291,15 @@ ${priceTable(["模型", "分辨率", "官方价", "HaryAI", "HaryAI 一段 5 秒
 
 带参考视频时每秒单价更低，参考视频的时长也计费。最新价格见 [Seedance API 价格](${page("/zh/seedance-api-pricing")})。
 
+### ${unlockZh.title}
+
+${unlockZh.note}
+
+${priceTable(["模型", "分辨率", "官方价", "HaryAI", "HaryAI 一段 5 秒"], unlockModels)}
+
 ## 快速开始
 
-1. 在 [haryai.com](${page("/zh/signup")}) 注册。新账号验证邮箱后送 $${gift.toFixed(2)} 余额，够用 ${lowest.name} 生成一段 5 秒 ${lowRes} 的视频（${clip(lowest.tiers[lowRes].ours)}）。
+1. 在 [haryai.com](${page("/zh/signup")}) 注册。新账号验证邮箱后送 $${gift.toFixed(2)} 余额，够用 ${lowest.name} 生成一段 5 秒 ${lowRes} 的视频（${lowest.tiers[lowRes].clip5}）。
 2. 在账户页复制 API key，设成环境变量：\`export HARYAI_KEY=...\`
 
 视频生成是异步任务：先提交，拿到任务 id，轮询到结束，再下载。

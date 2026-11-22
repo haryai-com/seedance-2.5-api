@@ -12,6 +12,8 @@
 |---|---|---|---|
 | Seedance 2.5 | `dreamina-seedance-2-5-260628` | 480p、720p、1080p | 4 到 30 秒 |
 | Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115` | 480p、720p | 4 到 30 秒 |
+| Seedance 2.5 | `dreamina-seedance-2-5-260628-unlock` | 480p、720p、1080p | 4 到 30 秒 |
+| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115-unlock` | 480p、720p | 4 到 30 秒 |
 
 请一定写明 `duration`（或 `seconds`）。声音可以一起生成，有没有声音都是同一个价。
 
@@ -28,6 +30,18 @@
 | Seedance 2.5 Flash | 720p | $0.151 | $0.133 | $0.67 |
 
 带参考视频时每秒单价更低，参考视频的时长也计费。最新价格见 [Seedance API 价格](https://haryai.com/zh/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)。
+
+### 解禁版 官方价 94 折
+
+同一个模型，内容限制更少。模型名后面加 -unlock 就行，比如 `dreamina-seedance-2-5-260628-unlock`。仍然有内容审核，被拒的任务全额退回。
+
+| 模型 | 分辨率 | 官方价 | HaryAI | HaryAI 一段 5 秒 |
+|---|---|---|---|---|
+| Seedance 2.5 | 480p | $0.103 | $0.097 | $0.48 |
+| Seedance 2.5 | 720p | $0.231 | $0.217 | $1.09 |
+| Seedance 2.5 | 1080p | $0.569 | $0.535 | $2.67 |
+| Seedance 2.5 Flash | 480p | $0.067 | $0.063 | $0.32 |
+| Seedance 2.5 Flash | 720p | $0.151 | $0.142 | $0.71 |
 
 ## 快速开始
 
