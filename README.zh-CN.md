@@ -139,6 +139,10 @@ Seedance 2.5 每秒 480p $0.09，720p $0.203，1080p $0.50（官方价 480p $0.1
 
 不能。视频只从余额扣费，HaryAI 的 Coding Plan 只用于 DeepSeek。
 
+### 大额充值有更多折扣吗？
+
+有。写信到 support@haryai.com，可以直充，折扣更多。
+
 ### ComfyUI 里怎么用 Seedance 2.5？
 
 ComfyUI 自带的 Seedance 节点扣的是 Comfy 自己的积分。装一个能填火山方舟接口地址和 API key 的社区视频节点，接口地址填 `https://api.haryai.com/api/v3`，填上你的 HaryAI key，模型填 `dreamina-seedance-2-5-260628`，再设分辨率、画面比例、时长（4 到 30 秒）和是否生成声音。只能登录它自家服务的节点用不了这个 key。详见 [在 ComfyUI 和 n8n 里用 Seedance 2.5](https://haryai.com/zh/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)。

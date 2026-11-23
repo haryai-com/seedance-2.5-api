@@ -33,6 +33,7 @@ const video = must(prices.match(/\*\*Seedance 2\.5 video\*\*[\s\S]*?(?=\nVideo p
 const share = Number(must(video.match(/at (\d+)% of BytePlus's official price/), "video share")[1]);
 const basis = flat(must(video.match(/Per second of ([\s\S]+?):\n/), "price basis")[1]); // "16:9 output, no reference video"
 const gift = Number(must(llms.match(/gets[\s>]+\$([\d.]+)[\s>]+of balance/), "signup gift")[1]);
+const [, largeEmail] = must(flat(llms.replace(/^> ?/gm, "")).match(/Large purchases: write to (\S+@\S+) for a direct top-up at a bigger discount\./), "large purchases"); // support@haryai.com
 // The -unlock names (same models, fewer content limits) follow the main list
 // with their own share and per-second lines.
 const [videoMain, videoUnlock] = video.split(/\nThe -unlock names/);
@@ -200,6 +201,10 @@ Yes. Every request goes to the official model. Each task's reply shows the token
 
 No. Video is paid from the balance only. The HaryAI Coding Plan is for DeepSeek.
 
+### Is there a discount for large purchases?
+
+Yes. Write to ${largeEmail} for a direct top-up at a bigger discount.
+
 ### How do I use Seedance 2.5 in ComfyUI?
 
 The built-in Seedance node bills Comfy's own credits, so install a community video node that takes a Volcengine Ark base URL and an API key. Fill in base URL \`https://api.haryai.com/api/v3\`, your HaryAI key and model \`${proModel.id}\`, plus resolution, ratio, duration (${dMin} to ${dMax} seconds) and generate audio. Nodes that only sign in to their own service won't take the key. Guide: [Seedance 2.5 in ComfyUI and n8n](${page("/en/seedance-2-5-comfyui")}).
@@ -358,6 +363,10 @@ ${models.map((m) => `${m.name} 每秒 ${Object.entries(m.tiers).map(([res, p]) =
 ### Coding Plan 能用来生成视频吗？
 
 不能。视频只从余额扣费，HaryAI 的 Coding Plan 只用于 DeepSeek。
+
+### 大额充值有更多折扣吗？
+
+有。写信到 ${largeEmail}，可以直充，折扣更多。
 
 ### ComfyUI 里怎么用 Seedance 2.5？
 

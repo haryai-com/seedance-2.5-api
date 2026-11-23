@@ -139,6 +139,10 @@ Yes. Every request goes to the official model. Each task's reply shows the token
 
 No. Video is paid from the balance only. The HaryAI Coding Plan is for DeepSeek.
 
+### Is there a discount for large purchases?
+
+Yes. Write to support@haryai.com for a direct top-up at a bigger discount.
+
 ### How do I use Seedance 2.5 in ComfyUI?
 
 The built-in Seedance node bills Comfy's own credits, so install a community video node that takes a Volcengine Ark base URL and an API key. Fill in base URL `https://api.haryai.com/api/v3`, your HaryAI key and model `dreamina-seedance-2-5-260628`, plus resolution, ratio, duration (4 to 30 seconds) and generate audio. Nodes that only sign in to their own service won't take the key. Guide: [Seedance 2.5 in ComfyUI and n8n](https://haryai.com/en/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api).
