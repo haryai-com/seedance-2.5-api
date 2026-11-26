@@ -219,11 +219,11 @@ key、模型和余额相关的错误：
 - [Seedance 2.5](https://haryai.com/zh/seedance-2-5?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)，[Seedance 2.5 Flash](https://haryai.com/zh/seedance-2-5-flash?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [Seedance API 价格](https://haryai.com/zh/seedance-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)
 - [视频接口文档](https://haryai.com/docs/video.md)，[对话接口文档](https://haryai.com/docs/api.md)，[llms.txt](https://haryai.com/llms.txt)
-- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
-- [seedance-comfyui](https://github.com/sunsiyuan/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
-- [n8n-nodes-haryai](https://github.com/sunsiyuan/n8n-nodes-haryai)：在 n8n 里用（npm 包 `n8n-nodes-haryai`）
-- [deepseek-codex-claude-code](https://github.com/sunsiyuan/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
-- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2
+- [seedance-skill](https://github.com/haryai-com/seedance-skill)：Claude Code 和 Codex 用的 Seedance 2.5 skill
+- [seedance-comfyui](https://github.com/haryai-com/seedance-comfyui)：在 ComfyUI 里用（ComfyUI Manager 里能搜到）
+- [n8n-nodes-haryai](https://github.com/haryai-com/n8n-nodes-haryai)：在 n8n 里用（npm 包 `n8n-nodes-haryai`）
+- [deepseek-codex-claude-code](https://github.com/haryai-com/deepseek-codex-claude-code)：在 Codex 和 Claude Code 里用 DeepSeek V4
+- [nano-banana-api](https://github.com/haryai-com/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2
 
 ## 许可
 
