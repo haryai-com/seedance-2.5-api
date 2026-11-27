@@ -45,7 +45,7 @@
 
 ## 快速开始
 
-1. 在 [haryai.com](https://haryai.com/zh/signup?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api) 注册。新账号验证邮箱后送 $0.50 余额，够用 Seedance 2.5 生成一段 5 秒 480p 的视频（$0.45）。
+1. 在 [haryai.com](https://haryai.com/zh/signup?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api) 注册。新账号验证邮箱后送 $0.35 余额，够用 Seedance 2.5 生成一段 5 秒 480p 的视频（$0.45）。
 2. 在账户页复制 API key，设成环境变量：`export HARYAI_KEY=...`
 
 视频生成是异步任务：先提交，拿到任务 id，轮询到结束，再下载。
@@ -157,21 +157,7 @@ ComfyUI 自带的 Seedance 节点扣的是 Comfy 自己的积分。装一个能�
 
 ### 在 Claude Code 或 Codex 里怎么用？
 
-先把 key 放进环境变量 `HARYAI_KEY`，把下面这段发给 agent，在最后一行写上想要的画面。它会写一个小脚本，提交任务、轮询，把视频存到 `./out`。
-
-```text
-用 HaryAI 的 Seedance 2.5 帮我生成视频，接口和火山方舟一样。
-
-- 接口地址：https://api.haryai.com/api/v3
-- API key：在环境变量 HARYAI_KEY 里，用 "Authorization: Bearer" 传
-- 模型：dreamina-seedance-2-5-260628
-- 提交：POST /contents/generations/tasks，请求体按火山方舟的格式，一定写明 duration
-- 查询：每 10 秒 GET 一次 /contents/generations/tasks/{id}，直到 status 是 succeeded 或 failed
-- 成功后把 content.video_url 下载到 ./out 并打开（链接 24 小时后失效）
-- 接口、状态和错误码：https://haryai.com/docs/video.md
-
-我想要的画面：
-```
+把账户页的提示词发给你的 Agent 一次，之后直接说「用 Seedance 2.5 做一条 5 秒的视频：……」就行。提示词在你的[账户页](https://haryai.com/zh/dashboard?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)：它会装上 HaryAI 的插件或 skill，并保存你的 key。
 
 Claude Code 照常用你自己的 Claude 订阅，只有视频从 HaryAI 余额扣费。Codex 不用先切换到 DeepSeek。详见 [在 Claude Code 里用 Seedance 2.5](https://haryai.com/zh/seedance-2-5-claude?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api) 和 [在 Codex 里用 Seedance 2.5](https://haryai.com/zh/seedance-2-5-codex?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)。
 
@@ -229,6 +215,6 @@ key、模型和余额相关的错误：
 
 MIT，见 [LICENSE](LICENSE)。
 
-价格截至 2026-11-23。
+价格截至 2026-11-27。
 
-<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 Seedance 2.5 video 一节）、https://haryai.com/docs/video.md 和 https://haryai.com/zh/seedance-2-5 上的 agent 提示词。请改 build.mjs，不要直接改本文件。 -->
+<!-- 2026-11-27 由 HaryAI 的价格目录和 https://haryai.com/docs/video.md 生成，请勿手改。 -->
