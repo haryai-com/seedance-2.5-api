@@ -22,7 +22,7 @@ if (!key) {
   process.exit(1);
 }
 
-const opts = { model: "dreamina-seedance-2-5-260628", duration: "5", resolution: "720p", ratio: "16:9", out: "out", audio: false, image: [] };
+const opts = { model: "doubao-seedance-2-5-260628", duration: "5", resolution: "720p", ratio: "16:9", out: "out", audio: false, image: [] };
 const words = [];
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {

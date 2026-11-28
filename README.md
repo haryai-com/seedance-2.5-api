@@ -10,10 +10,10 @@ This repo shows how to call it: curl, a zero-dependency Node script, and answers
 
 | Model | Model id | Resolutions | Duration |
 |---|---|---|---|
-| Seedance 2.5 | `dreamina-seedance-2-5-260628` | 480p, 720p, 1080p | 4 to 30 s |
-| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115` | 480p, 720p | 4 to 30 s |
-| Seedance 2.5 | `dreamina-seedance-2-5-260628-unlock` | 480p, 720p, 1080p | 4 to 30 s |
-| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115-unlock` | 480p, 720p | 4 to 30 s |
+| Seedance 2.5 | `doubao-seedance-2-5-260628` | 480p, 720p, 1080p | 4 to 30 s |
+| Seedance 2.5 Flash | `doubao-seedance-2-5-flash-261115` | 480p, 720p | 4 to 30 s |
+| Seedance 2.5 Unlock | `dreamina-seedance-2-5-260628` | 480p, 720p, 1080p | 4 to 30 s |
+| Seedance 2.5 Flash Unlock | `dreamina-seedance-2-5-flash-261115` | 480p, 720p | 4 to 30 s |
 
 Always set `duration` (or `seconds`). Sound is generated on request, at the same price with or without it.
 
@@ -33,15 +33,15 @@ With a reference video the per-second price is lower, and the reference video's 
 
 ### Unlocked version, 6% off the official price
 
-The same models with fewer content limits. Add -unlock to the model name, as in `dreamina-seedance-2-5-260628-unlock`. Content review still applies, and a refused task is refunded in full.
+The same versions with fewer content limits, each under its own model name, as in `dreamina-seedance-2-5-260628`. Content review still applies, and a refused task is refunded in full.
 
 | Model | Resolution | Official | HaryAI | 5 s clip on HaryAI |
 |---|---|---|---|---|
-| Seedance 2.5 | 480p | $0.103 | $0.097 | $0.48 |
-| Seedance 2.5 | 720p | $0.231 | $0.217 | $1.09 |
-| Seedance 2.5 | 1080p | $0.569 | $0.535 | $2.67 |
-| Seedance 2.5 Flash | 480p | $0.067 | $0.063 | $0.32 |
-| Seedance 2.5 Flash | 720p | $0.151 | $0.142 | $0.71 |
+| Seedance 2.5 Unlock | 480p | $0.103 | $0.097 | $0.48 |
+| Seedance 2.5 Unlock | 720p | $0.231 | $0.217 | $1.09 |
+| Seedance 2.5 Unlock | 1080p | $0.569 | $0.535 | $2.67 |
+| Seedance 2.5 Flash Unlock | 480p | $0.067 | $0.063 | $0.32 |
+| Seedance 2.5 Flash Unlock | 720p | $0.151 | $0.142 | $0.71 |
 
 ## Quick start
 
@@ -59,7 +59,7 @@ curl https://api.haryai.com/api/v3/contents/generations/tasks \
   -H "Authorization: Bearer $HARYAI_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "dreamina-seedance-2-5-260628",
+    "model": "doubao-seedance-2-5-260628",
     "content": [{"type": "text", "text": "A cat dancing in the rain"}],
     "duration": 5,
     "resolution": "720p",
@@ -94,7 +94,7 @@ curl "https://api.haryai.com/api/v3/contents/generations/tasks?page_size=20&filt
 curl https://api.haryai.com/v1/videos \
   -H "Authorization: Bearer $HARYAI_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"model":"dreamina-seedance-2-5-260628","prompt":"A cat dancing in the rain","seconds":5,"size":"1280x720"}'
+  -d '{"model":"doubao-seedance-2-5-260628","prompt":"A cat dancing in the rain","seconds":5,"size":"1280x720"}'
 
 # 2. Poll
 curl https://api.haryai.com/v1/videos/<id> -H "Authorization: Bearer $HARYAI_KEY"
@@ -121,7 +121,7 @@ Options: `--model`, `--duration`, `--resolution`, `--ratio`, `--audio`, `--image
 
 ### How do I call the Seedance 2.5 API?
 
-Send an Ark request to `https://api.haryai.com/api/v3/contents/generations/tasks` with `Authorization: Bearer <HARYAI_KEY>` and model `dreamina-seedance-2-5-260628` (or `dreamina-seedance-2-5-flash-261115` for Flash). Poll `/contents/generations/tasks/<id>` until `succeeded`, then download `content.video_url`. Tools that only speak the OpenAI format use `https://api.haryai.com/v1` and `/v1/videos`.
+Send an Ark request to `https://api.haryai.com/api/v3/contents/generations/tasks` with `Authorization: Bearer <HARYAI_KEY>` and model `doubao-seedance-2-5-260628` (or `doubao-seedance-2-5-flash-261115` for Flash). Poll `/contents/generations/tasks/<id>` until `succeeded`, then download `content.video_url`. Tools that only speak the OpenAI format use `https://api.haryai.com/v1` and `/v1/videos`.
 
 ### How much does Seedance 2.5 cost per second?
 
@@ -145,7 +145,7 @@ Yes. Write to support@haryai.com for a direct top-up at a bigger discount.
 
 ### How do I use Seedance 2.5 in ComfyUI?
 
-The built-in Seedance node bills Comfy's own credits, so install a community video node that takes a Volcengine Ark base URL and an API key. Fill in base URL `https://api.haryai.com/api/v3`, your HaryAI key and model `dreamina-seedance-2-5-260628`, plus resolution, ratio, duration (4 to 30 seconds) and generate audio. Nodes that only sign in to their own service won't take the key. Guide: [Seedance 2.5 in ComfyUI and n8n](https://haryai.com/en/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api).
+The built-in Seedance node bills Comfy's own credits, so install a community video node that takes a Volcengine Ark base URL and an API key. Fill in base URL `https://api.haryai.com/api/v3`, your HaryAI key and model `doubao-seedance-2-5-260628`, plus resolution, ratio, duration (4 to 30 seconds) and generate audio. Nodes that only sign in to their own service won't take the key. Guide: [Seedance 2.5 in ComfyUI and n8n](https://haryai.com/en/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api).
 
 ### How do I use Seedance 2.5 in n8n?
 
@@ -215,6 +215,6 @@ A failed task has `error: {code, message}`. Details: [docs/video.md](https://har
 
 MIT. See [LICENSE](LICENSE).
 
-Prices as of 2026-11-27.
+Prices as of 2026-11-28.
 
-<!-- Generated on 2026-11-27 from HaryAI's price catalog and https://haryai.com/docs/video.md. Don't edit by hand. -->
+<!-- Generated on 2026-11-28 from HaryAI's price catalog and https://haryai.com/docs/video.md. Don't edit by hand. -->

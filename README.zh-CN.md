@@ -10,10 +10,10 @@
 
 | 模型 | 模型名 | 分辨率 | 时长 |
 |---|---|---|---|
-| Seedance 2.5 | `dreamina-seedance-2-5-260628` | 480p、720p、1080p | 4 到 30 秒 |
-| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115` | 480p、720p | 4 到 30 秒 |
-| Seedance 2.5 | `dreamina-seedance-2-5-260628-unlock` | 480p、720p、1080p | 4 到 30 秒 |
-| Seedance 2.5 Flash | `dreamina-seedance-2-5-flash-261115-unlock` | 480p、720p | 4 到 30 秒 |
+| Seedance 2.5 | `doubao-seedance-2-5-260628` | 480p、720p、1080p | 4 到 30 秒 |
+| Seedance 2.5 Flash | `doubao-seedance-2-5-flash-261115` | 480p、720p | 4 到 30 秒 |
+| Seedance 2.5 Unlock | `dreamina-seedance-2-5-260628` | 480p、720p、1080p | 4 到 30 秒 |
+| Seedance 2.5 Flash Unlock | `dreamina-seedance-2-5-flash-261115` | 480p、720p | 4 到 30 秒 |
 
 请一定写明 `duration`（或 `seconds`）。声音可以一起生成，有没有声音都是同一个价。
 
@@ -33,15 +33,15 @@
 
 ### 解禁版 官方价 94 折
 
-同一个模型，内容限制更少。模型名后面加 -unlock 就行，比如 `dreamina-seedance-2-5-260628-unlock`。仍然有内容审核，被拒的任务全额退回。
+同一个版本，内容限制更少，用它自己的模型名，比如 `dreamina-seedance-2-5-260628`。仍然有内容审核，被拒的任务全额退回。
 
 | 模型 | 分辨率 | 官方价 | HaryAI | HaryAI 一段 5 秒 |
 |---|---|---|---|---|
-| Seedance 2.5 | 480p | $0.103 | $0.097 | $0.48 |
-| Seedance 2.5 | 720p | $0.231 | $0.217 | $1.09 |
-| Seedance 2.5 | 1080p | $0.569 | $0.535 | $2.67 |
-| Seedance 2.5 Flash | 480p | $0.067 | $0.063 | $0.32 |
-| Seedance 2.5 Flash | 720p | $0.151 | $0.142 | $0.71 |
+| Seedance 2.5 Unlock | 480p | $0.103 | $0.097 | $0.48 |
+| Seedance 2.5 Unlock | 720p | $0.231 | $0.217 | $1.09 |
+| Seedance 2.5 Unlock | 1080p | $0.569 | $0.535 | $2.67 |
+| Seedance 2.5 Flash Unlock | 480p | $0.067 | $0.063 | $0.32 |
+| Seedance 2.5 Flash Unlock | 720p | $0.151 | $0.142 | $0.71 |
 
 ## 快速开始
 
@@ -59,7 +59,7 @@ curl https://api.haryai.com/api/v3/contents/generations/tasks \
   -H "Authorization: Bearer $HARYAI_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "dreamina-seedance-2-5-260628",
+    "model": "doubao-seedance-2-5-260628",
     "content": [{"type": "text", "text": "A cat dancing in the rain"}],
     "duration": 5,
     "resolution": "720p",
@@ -94,7 +94,7 @@ curl "https://api.haryai.com/api/v3/contents/generations/tasks?page_size=20&filt
 curl https://api.haryai.com/v1/videos \
   -H "Authorization: Bearer $HARYAI_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"model":"dreamina-seedance-2-5-260628","prompt":"A cat dancing in the rain","seconds":5,"size":"1280x720"}'
+  -d '{"model":"doubao-seedance-2-5-260628","prompt":"A cat dancing in the rain","seconds":5,"size":"1280x720"}'
 
 # 2. Poll
 curl https://api.haryai.com/v1/videos/<id> -H "Authorization: Bearer $HARYAI_KEY"
@@ -121,7 +121,7 @@ node examples/seedance.mjs "雨夜的霓虹小巷，一把红伞" --duration 5 -
 
 ### Seedance 2.5 API 怎么调用？
 
-按火山方舟的格式向 `https://api.haryai.com/api/v3/contents/generations/tasks` 提交，请求头带 `Authorization: Bearer <HARYAI_KEY>`，模型填 `dreamina-seedance-2-5-260628`（Flash 填 `dreamina-seedance-2-5-flash-261115`）。然后轮询 `/contents/generations/tasks/<id>`，到 `succeeded` 后下载 `content.video_url`。只支持 OpenAI 格式的工具，接口地址填 `https://api.haryai.com/v1`，调用 `/v1/videos`。
+按火山方舟的格式向 `https://api.haryai.com/api/v3/contents/generations/tasks` 提交，请求头带 `Authorization: Bearer <HARYAI_KEY>`，模型填 `doubao-seedance-2-5-260628`（Flash 填 `doubao-seedance-2-5-flash-261115`）。然后轮询 `/contents/generations/tasks/<id>`，到 `succeeded` 后下载 `content.video_url`。只支持 OpenAI 格式的工具，接口地址填 `https://api.haryai.com/v1`，调用 `/v1/videos`。
 
 ### Seedance 2.5 每秒多少钱？
 
@@ -145,7 +145,7 @@ Seedance 2.5 每秒 480p $0.09，720p $0.203，1080p $0.50（官方价 480p $0.1
 
 ### ComfyUI 里怎么用 Seedance 2.5？
 
-ComfyUI 自带的 Seedance 节点扣的是 Comfy 自己的积分。装一个能填火山方舟接口地址和 API key 的社区视频节点，接口地址填 `https://api.haryai.com/api/v3`，填上你的 HaryAI key，模型填 `dreamina-seedance-2-5-260628`，再设分辨率、画面比例、时长（4 到 30 秒）和是否生成声音。只能登录它自家服务的节点用不了这个 key。详见 [在 ComfyUI 和 n8n 里用 Seedance 2.5](https://haryai.com/zh/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)。
+ComfyUI 自带的 Seedance 节点扣的是 Comfy 自己的积分。装一个能填火山方舟接口地址和 API key 的社区视频节点，接口地址填 `https://api.haryai.com/api/v3`，填上你的 HaryAI key，模型填 `doubao-seedance-2-5-260628`，再设分辨率、画面比例、时长（4 到 30 秒）和是否生成声音。只能登录它自家服务的节点用不了这个 key。详见 [在 ComfyUI 和 n8n 里用 Seedance 2.5](https://haryai.com/zh/seedance-2-5-comfyui?utm_source=github&utm_medium=readme&utm_campaign=seedance-2.5-api)。
 
 ### n8n 里怎么用？
 
@@ -215,6 +215,6 @@ key、模型和余额相关的错误：
 
 MIT，见 [LICENSE](LICENSE)。
 
-价格截至 2026-11-27。
+价格截至 2026-11-28。
 
-<!-- 2026-11-27 由 HaryAI 的价格目录和 https://haryai.com/docs/video.md 生成，请勿手改。 -->
+<!-- 2026-11-28 由 HaryAI 的价格目录和 https://haryai.com/docs/video.md 生成，请勿手改。 -->
